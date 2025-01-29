@@ -1,5 +1,5 @@
 import { getArticles, getArticleBySlug } from "@/lib/newt";
-
+import styles from "@/app/page.module.css";
 import type { Metadata } from "next";
 import type { Article } from "@/types/article";
 
@@ -9,7 +9,7 @@ type Props = {
   };
 };
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const articles = await getArticles();
   return articles.map((article) => ({
     slug: article.slug,
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 export const dynamicParams = false;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = params;
   const article = await getArticleBySlug(slug);
 
   return {
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Article({ params }: Props) {
-  const { slug } = await params;
+  const { slug } = params;
   const article = await getArticleBySlug(slug);
   if (!article) return;
 
