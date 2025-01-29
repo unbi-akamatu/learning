@@ -1,5 +1,5 @@
 import { getArticles, getArticleBySlug } from "@/lib/newt";
-import styles from "@/app/page.module.css";
+
 import type { Metadata } from "next";
 import type { Article } from "@/types/article";
 
@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Article({ params }: Props) {
   const { slug } = await params;
- const article = await getArticleBySlug(slug);
-   if (!article) return;
+  const article = await getArticleBySlug(slug);
+  if (!article) return;
 
   return (
     <article className={styles.main}>

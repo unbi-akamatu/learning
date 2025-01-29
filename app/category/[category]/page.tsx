@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { getArticles, getCategories } from "@/lib/newt";
-import styles from "@/app/page.module.css";
 import { format } from "date-fns";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";

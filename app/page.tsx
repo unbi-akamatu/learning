@@ -1,7 +1,7 @@
 // "use client";
 import Link from "next/link";
 import { getArticles, getCategories, getNewses } from "@/lib/newt";
-import styles from "@/app/page.module.css";
+
 import type { Metadata } from "next";
 import { format } from "date-fns";
 import Image from "next/image";

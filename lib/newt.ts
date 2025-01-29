@@ -90,8 +90,8 @@ export const getArticlesByCategory = cache(async (category: string): Promise<Art
   }
 });
 
-const key = "unbijour - shirume";
-const cleanedKey = key.replace(/\s*-\s*/g, "-");
+// const key = "unbijour - shirume";
+// const cleanedKey = key.replace(/\s*-\s*/g, "-");
 
 // export async function getCategoryById(categoryId: string) {
 // Newt APIを使ってカテゴリーIDに基づいてカテゴリー情報を取得
