@@ -1,13 +1,14 @@
 import { getArticles, getArticleBySlug } from "@/lib/newt";
 import styles from "@/app/page.module.css";
-import type { Metadata } from "next";
+import type { Metadata, PageProps } from "next";
 import type { Article } from "@/types/article";
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
+type Props = PageProps<{ slug: string }>;
+// {
+//   params: {
+//     slug: string;
+//   };
+// };
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const articles = await getArticles();
