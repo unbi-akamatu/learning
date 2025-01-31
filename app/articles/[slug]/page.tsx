@@ -3,13 +3,9 @@ import styles from "@/app/page.module.css";
 import type { Metadata } from "next";
 import type { Article } from "@/types/article";
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
+type Params = { slug: string };
 
-export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const articles = await getArticles();
   return articles.map((article) => ({
     slug: article.slug,
@@ -17,20 +13,20 @@ export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
 }
 export const dynamicParams = false;
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata | undefined> {
+  const { slug } = await params;
   const article = await getArticleBySlug(slug);
 
   return {
-    title: article?.title,
+    title: article?.title || "記事が見つかりません",
     description: "投稿詳細ページです",
   };
 }
 
-export default async function Article({ params }: Props) {
-  const { slug } = params;
+export default async function Article({ params }: { params: Params }) {
+  const { slug } = await params;
   const article = await getArticleBySlug(slug);
-  if (!article) return;
+  if (!article) return null;
 
   return (
     <article className={styles.main}>
