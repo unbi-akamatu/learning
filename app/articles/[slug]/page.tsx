@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   };
 }
 
-export default async function Article({ params }: { params: Params }) {
+export default async function Article({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) return null;
