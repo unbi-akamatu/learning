@@ -4,7 +4,6 @@ import { cache } from "react";
 import type { Article } from "@/types/article";
 import type { News } from "@/types/news";
 import type { Category } from "@/types/category";
-// import { console } from "inspector";
 
 export const client = createClient({
   spaceUid: process.env.NEWT_SPACE_UID + "",
@@ -89,13 +88,3 @@ export const getArticlesByCategory = cache(async (category: string): Promise<Art
     throw new Error("記事一覧の取得に失敗しました");
   }
 });
-
-// const key = "unbijour - shirume";
-// const cleanedKey = key.replace(/\s*-\s*/g, "-");
-
-// export async function getCategoryById(categoryId: string) {
-// Newt APIを使ってカテゴリーIDに基づいてカテゴリー情報を取得
-//   const category = await fetch(`https://cleanedKey.api.newt.so/v1/categories/${categoryId}`);
-//   const categoryData = await category.json();
-//   return categoryData.name; // カテゴリー名を返す
-// }
