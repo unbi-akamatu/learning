@@ -8,8 +8,8 @@ interface PageProps {
 }
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const articles = await getArticles();
-  return articles.map((article) => ({
+  const articles: Article[] = await getArticles();
+  return articles.map((article: Article) => ({
     slug: article.slug,
   }));
 }
