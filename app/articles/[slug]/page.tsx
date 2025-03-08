@@ -7,16 +7,16 @@ interface PageProps {
   params: { slug: string };
 }
 
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
+export async function generateStaticParams(): Promise<{ params: { slug: string } }[]> {
   const articles: Article[] = await getArticles();
-  return articles.map((article: Article) => ({
-    slug: article.slug,
+  return articles.map((article) => ({
+    params: { slug: article.slug },
   }));
 }
 
 export const dynamicParams = false;
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const article: Article | null = await getArticleBySlug(params.slug);
   return {
     title: article?.title || "記事が見つかりません",

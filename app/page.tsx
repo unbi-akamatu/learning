@@ -18,6 +18,8 @@ export default async function Home() {
   const articles = await getArticles();
   const categories = await getCategories();
 
+  console.log("取得した記事データ:", articles);
+
   return (
     <div className="px-6">
       <section>
