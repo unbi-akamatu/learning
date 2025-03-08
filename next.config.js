@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone", // ✅ これを設定
+
   // output: "export", // ✅ Netlifyのデプロイで安定化
   trailingSlash: true,
   reactStrictMode: true,
