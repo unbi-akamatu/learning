@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation"; // ✅ `notFound()` をインポート
+import { getCategories, getArticles } from "@/lib/newt";
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getArticles, getCategories } from "@/lib/newt";
 import { format } from "date-fns";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -9,9 +9,7 @@ interface PageProps {
   params: { category: string };
 }
 
-// ✅ Next.js に静的ページのみを使用するよう指示
-export const dynamicParams = false;
-
+// ✅ Next.js に静的ページをエクスポートするよう指示
 export async function generateStaticParams() {
   const categories = await getCategories();
 
@@ -26,18 +24,17 @@ export async function generateStaticParams() {
   }
 
   const staticParams = categories.map((category) => ({
-    params: { category: category._id.toString() }, // ✅ 明示的に `string` に変換
+    category: category._id.toString(), // ✅ 明示的に `string` に変換
   }));
 
-  console.log("🟢 生成する静的ページ（最終確認）:", JSON.stringify(staticParams, null, 2)); // 🚀 明示的にログ出力
+  console.log("🟢 生成する静的ページ:", JSON.stringify(staticParams, null, 2)); // 🚀 明示的にログ出力
 
   return staticParams;
 }
 
 export default async function CategoryPage({ params }: PageProps) {
-  console.log("🟢 params:", params); // ✅ デバッグログ
+  console.log("🟢 params:", params); // ✅ デバッグ用ログ
 
-  // ✅ `params` が undefined の場合は 404 にする
   if (!params || !params.category) {
     console.error("❌ params が取得できませんでした:", params);
     return notFound();
@@ -48,14 +45,11 @@ export default async function CategoryPage({ params }: PageProps) {
   const categories = await getCategories();
   const articles = await getArticles();
 
-  // ✅ `category` に対応するカテゴリが存在しない場合は 404 にする
   const currentCategory = categories.find((cat) => cat._id === category);
   if (!currentCategory) {
     console.error("❌ 現在のカテゴリが見つかりません:", category);
     return notFound();
   }
-
-  const categoryName = currentCategory.name;
 
   const filteredArticles = articles.filter((article) => {
     if (!article.categories) return false;
@@ -72,7 +66,7 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <div className="px-6">
       <section>
-        <h1 className="font-bold text-3xl mb-6">{categoryName} の記事一覧</h1>
+        <h1 className="font-bold text-3xl mb-6">{currentCategory.name} の記事一覧</h1>
         {filteredArticles.length > 0 ? (
           <ul className="grid gap-6 lg:grid-cols-3">
             {filteredArticles.map((article) => (
