@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: "export", // ✅ Netlifyのデプロイで安定化
+  trailingSlash: true,
   reactStrictMode: true,
   env: {
     NEWT_CDN_API_TOKEN: process.env.NEWT_CDN_API_TOKEN,
