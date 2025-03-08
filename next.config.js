@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export", // ✅ Netlifyのデプロイで安定化
   trailingSlash: true,
   reactStrictMode: true,
   env: {
