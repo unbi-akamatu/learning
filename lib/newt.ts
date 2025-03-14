@@ -5,10 +5,23 @@ import type { Article } from "@/types/article";
 import type { News } from "@/types/news";
 import type { Category } from "@/types/category";
 
+// カスタム fetch を定義
+// すべてのリクエストに ISR のオプションを付与する
+const customFetch = (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+  // init が未定義の場合は空のオブジェクトにする
+  return fetch(input, {
+    ...init,
+    // Next.js の ISR オプションを追加
+    next: { revalidate: 60 },
+  });
+};
+
 export const client = createClient({
   spaceUid: process.env.NEWT_SPACE_UID + "",
   token: process.env.NEWT_CDN_API_TOKEN + "",
   apiType: "cdn",
+  // カスタム fetch 関数を指定
+  fetch: customFetch,
 });
 
 export const getArticles = cache(async () => {
