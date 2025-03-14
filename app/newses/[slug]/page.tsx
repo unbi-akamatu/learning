@@ -4,7 +4,6 @@ import { getNewsBySlug, getNewses } from "@/lib/newt";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import Link from "next/link";
-import type { News } from "@/types/news";
 
 // ISR 用に静的パスを生成する
 export async function generateStaticParams() {
