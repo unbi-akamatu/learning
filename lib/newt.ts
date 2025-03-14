@@ -58,6 +58,18 @@ export const getNewses = cache(async () => {
   return items;
 });
 
+export const getNewsBySlug = cache(async (slug: string) => {
+  const news = await client.getFirstContent<News>({
+    appUid: "blog",
+    modelUid: "news",
+    query: {
+      slug,
+      select: ["_id", "title", "slug", "body", "_sys.createdAt", "_sys.updatedAt", "date"],
+    },
+  });
+  return news;
+});
+
 export const searchArticles = cache(async (keyword: string) => {
   const { items } = await client.getContents<Article>({
     appUid: "blog",

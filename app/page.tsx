@@ -29,7 +29,7 @@ export default async function Home() {
             return (
               <li key={news._id} className="rounded-lg relative border p-4 hover:bg-accent">
                 <h3>
-                  <Link href={`newses/${news.slug}`}>
+                  <Link href={`/newses/${news.slug}`}>
                     {news.title}
                     <span className="absolute inset-0" />
                   </Link>
